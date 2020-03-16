@@ -43,8 +43,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setType("*/*");
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Hey Study Partner");
-                if(emailIntent.resolveActivity(getPackageManager()) != null){
+                if (emailIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(emailIntent);
+                }
+                Intent emailIntents = new Intent(Intent.ACTION_SEND);
+                emailIntents.setType("*/*");
+                emailIntents.putExtra(Intent.EXTRA_SUBJECT, "Hey Study Partner");
+                if (emailIntents.resolveActivity(getPackageManager()) != null) {
+                    startActivity(emailIntents);
                 }
             }
         });
@@ -53,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+                R.id.nav_add, R.id.nav_delete, R.id.nav_sms, R.id.nav_email,
+                R.id.nav_settings, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -68,53 +74,73 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-public boolean onOptionsItemsSelected(MenuItem item){
-        int id= item.getItemId();
-        if(id == R.id.action_settings){
+
+    public boolean onOptionsItemsSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
             return true;
         }
-    if(id == R.id.action_add){
-        Snackbar.make(getWindow().getDecorView(),, "Add implemented", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-        return true;
-    }
-    if(id == R.id.action_delete){
-        Snackbar.make(getWindow().getDecorView(),, "Delete implemented", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-        return true;
-    } if(id == R.id.action_sms){
-        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-        sendIntent.setData(Uri.parse("sms:2183911863"));
-        sendIntent.putExtra("sms_body", "Content of the SMS goes here...");
-        startActivity(sendIntent);
-        return true;
-    }
-    if(id == R.id.action_email){
-       Intent emailIntent = new Intent(Intent.ACTION_SEND);
-       emailIntent.setType("*/*");
-       emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Hey Study Partner");
-       if(emailIntent.resolveActivity(getPackageManager()) != null){
-           startActivity(emailIntent);
-       }
-        return true;
-    }
+        if (id == R.id.action_add) {
+            Snackbar.make(getWindow().getDecorView(), "Add implemented", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            return true;
+        }
+        if (id == R.id.action_delete) {
+            Snackbar.make(getWindow().getDecorView(), "Delete implemented", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            return true;
+        }
+        if (id == R.id.action_sms) {
+            Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+            sendIntent.setData(Uri.parse("sms:2183911863"));
+            sendIntent.putExtra("sms_body", "Content of the SMS goes here...");
+            startActivity(sendIntent);
+            return true;
+        }
+        if (id == R.id.action_email) {
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("*/*");
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Hey Study Partner");
+            if (emailIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(emailIntent);
+            }
+            //assignment 9
+            if (id == R.id.nav_settings) {
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                return true;
+            }
+            if (id == R.id.nav_add) {
+                Snackbar.make(getWindow().getDecorView(), "Add implemented", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                return true;
+            }
+            if (id == R.id.nav_delete) {
+                Snackbar.make(getWindow().getDecorView(), "Delete implemented", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                return true;
+            }
+            if (id == R.id.nav_sms) {
+                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                sendIntent.setData(Uri.parse("sms:2183911863"));
+                sendIntent.putExtra("sms_body", "Content of the SMS goes here...");
+                startActivity(sendIntent);
+                return true;
+            }
+            if (id == R.id.nav_email) {
+                Intent emailIntents = new Intent(Intent.ACTION_SEND);
+                emailIntents.setType("*/*");
+                emailIntents.putExtra(Intent.EXTRA_SUBJECT, "Hey Study Partner");
+                if (emailIntents.resolveActivity(getPackageManager()) != null) {
+                    startActivity(emailIntents);
+                }
+
+            }
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
-}
-public boolean onNavigationItemsSelected(MenuItem item){
-        int id = item.getItemId();
-        if(id == R.id.nav_camera){
-
-        }else if(id == R.id.nav_gallery){
-
-        }
-}
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
     }
 }
